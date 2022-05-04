@@ -1,0 +1,34 @@
+:root {
+  --cp-White: white;
+  --cp-Black: black;
+  --cp-Grey: grey;
+}
+body {
+  background: var(--cp-Grey);
+  font-family: arial;
+}
+#mainColor {
+  height: 5rem;
+  width: 25.5rem;
+}
+.sliderContainer {
+  display: flex;
+  margin: 0.5rem;
+}
+input[type="range"] {
+  background: transparent;
+  outline: none;
+  width: 25.5rem;
+}
+.labelLetter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  border-radius: 25%;
+  font-weight: 700;
+  height: 1.5rem;
+  width: 1.5rem;
+  color: var(--cp-Grey);
+  background: var(--cp-White);
+}
