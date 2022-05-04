@@ -32,3 +32,6 @@ input[type="range"] {
   color: var(--cp-Grey);
   background: var(--cp-White);
 }
+section {
+  margin-top: 3rem;
+}

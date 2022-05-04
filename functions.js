@@ -1,4 +1,4 @@
-export default function makeSlider(labelLetter, id, colorValue) {
+export default function makeSlider(labelLetter, id, colorValue, max) {
   function changeValue(event, id2) {
     let element = event.target;
     let value = document.querySelector(`#${id2}`);
@@ -14,21 +14,19 @@ export default function makeSlider(labelLetter, id, colorValue) {
   let element = document.createElement("input");
   element.type = "range";
   element.min = 0;
-  element.max = 255;
+  element.max = max;
   element.id = id;
-  element.value = 255;
+  element.value = max;
   let label2 = document.createElement("label");
   label2.for = "rColor";
   label2.id = colorValue;
-  label2.innerText = "255";
+  label2.innerText = max;
   container.appendChild(label1);
   container.appendChild(element);
   container.appendChild(label2);
-
-  document.querySelector(".body").appendChild(container);
-  document
-    .querySelector(`#${id}`)
-    .addEventListener("input", (event) => changeValue(event, colorValue));
+  element.addEventListener("input", (event) => changeValue(event, colorValue));
+  return container;
+  /* document.querySelector(".body").appendChild(container);*/
 }
 
 export function makeMainColor() {
@@ -37,6 +35,9 @@ export function makeMainColor() {
   COLOR.dataset.rColor = 255;
   COLOR.dataset.gColor = 255;
   COLOR.dataset.bColor = 255;
+  COLOR.dataset.hColor = 255;
+  COLOR.dataset.sColor = 255;
+  COLOR.dataset.lColor = 255;
   COLOR.style.background = "rgb(255,255,255)";
   COLOR.style.borderRadius = "0.5rem";
   document.querySelector(".body").appendChild(COLOR);
@@ -51,7 +52,13 @@ export function makeRGBInfluence() {
   function changeMainColor(data, value) {
     let COLOR = document.querySelector("#mainColor");
     COLOR.dataset[data] = value;
-    COLOR.style.background = `rgb(${COLOR.dataset.rColor},${COLOR.dataset.gColor},${COLOR.dataset.bColor})`;
+    if (data == "rColor" || data == "gColor" || data == "bColor") {
+      COLOR.style.background = `rgb(${COLOR.dataset.rColor},${COLOR.dataset.gColor},${COLOR.dataset.bColor})`;
+    }
+    if (data == "hColor" || data == "sColor" || data == "lColor") {
+      console.log("triggered");
+      COLOR.style.background = `hsl(${COLOR.dataset.hColor},${COLOR.dataset.sColor}%,${COLOR.dataset.lColor}%)`;
+    }
     console.log(
       RGBToHSL(COLOR.dataset.rColor, COLOR.dataset.gColor, COLOR.dataset.bColor)
     );
