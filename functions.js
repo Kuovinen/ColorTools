@@ -85,3 +85,49 @@ export function RGBToHSL(r, g, b) {
   ];
   return [Math.floor(result[0]), Math.floor(result[1]), Math.floor(result[2])];
 }
+export function numtoHex(number) {
+  let value = toString(number);
+  switch (value) {
+    case "0":
+      return "0";
+    case "1":
+      return "1";
+    case "2":
+      return "2";
+    case "3":
+      return "3";
+    case "4":
+      return "4";
+    case "5":
+      return "5";
+    case "6":
+      return "6";
+    case "7":
+      return "7";
+    case "8":
+      return "8";
+    case "9":
+      return "9";
+    case "10":
+      return "A";
+    case "11":
+      return "B";
+    case "12":
+      return "C";
+    case "13":
+      return "D";
+    case "14":
+      return "E";
+    case "15":
+      return "F";
+  }
+}
+
+export function rgbToHex(arr) {
+  let first = arr[0];
+  let second = arr[1];
+  let third = arr[2];
+
+  let newFirst = numtoHex((first - (first % 16)) / 16);
+  let newFistAdd = numtoHex(first % 16);
+}

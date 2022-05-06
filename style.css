@@ -4,12 +4,13 @@
   --cp-Grey: grey;
 }
 body {
-  background: var(--cp-Grey);
+  background: var(--cp-Black);
   font-family: arial;
 }
 #mainColor {
   height: 5rem;
   width: 25.5rem;
+  outline: 0.3rem solid var(--cp-Black);
 }
 .sliderContainer {
   display: flex;
