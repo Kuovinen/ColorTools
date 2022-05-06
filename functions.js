@@ -86,7 +86,10 @@ export function RGBToHSL(r, g, b) {
   return [Math.floor(result[0]), Math.floor(result[1]), Math.floor(result[2])];
 }
 export function numtoHex(number) {
-  let value = toString(number);
+  console.log(number);
+  let value = number.toString();
+  console.log("my value is");
+  console.log(value);
   switch (value) {
     case "0":
       return "0";
@@ -128,6 +131,14 @@ export function rgbToHex(arr) {
   let second = arr[1];
   let third = arr[2];
 
-  let newFirst = numtoHex((first - (first % 16)) / 16);
-  let newFistAdd = numtoHex(first % 16);
+  function createTouple(number) {
+    let newFirst = numtoHex((number - (number % 16)) / 16);
+    let newSecond = numtoHex(number % 16);
+    console.log((number - (number % 16)) / 16, number % 16);
+    return newFirst.toString() + newSecond.toString();
+  }
+
+  let hex =
+    "#" + createTouple(first) + createTouple(second) + createTouple(third);
+  return hex;
 }

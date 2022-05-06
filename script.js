@@ -2,6 +2,7 @@ import makeSlider, {
   makeMainColor,
   makeRGBInfluence,
   RGBToHSL,
+  rgbToHex,
 } from "./functions.js";
 console.log("Script!");
 makeMainColor();
