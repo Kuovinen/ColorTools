@@ -42,6 +42,16 @@ export function makeMainColor() {
   COLOR.style.borderRadius = "0.5rem";
   document.querySelector(".body").appendChild(COLOR);
 }
+//handler that changed the main hex value depending on slider cahnges
+function affectHex() {
+  let COLOR = document.querySelector("#mainColor");
+  COLOR.innerText = rgbToHex([
+    COLOR.dataset.rColor,
+    COLOR.dataset.gColor,
+    COLOR.dataset.bColor,
+  ]);
+}
+//used to change main color when one of the RGB inputs is changed
 export function makeRGBInfluence() {
   document
     .querySelector(".body")
@@ -51,12 +61,16 @@ export function makeRGBInfluence() {
 
   function changeMainColor(data, value) {
     let COLOR = document.querySelector("#mainColor");
+    COLOR.innerText = rgbToHex([
+      COLOR.dataset.rColor,
+      COLOR.dataset.gColor,
+      COLOR.dataset.bColor,
+    ]);
     COLOR.dataset[data] = value;
     if (data == "rColor" || data == "gColor" || data == "bColor") {
       COLOR.style.background = `rgb(${COLOR.dataset.rColor},${COLOR.dataset.gColor},${COLOR.dataset.bColor})`;
     }
     if (data == "hColor" || data == "sColor" || data == "lColor") {
-      console.log("triggered");
       COLOR.style.background = `hsl(${COLOR.dataset.hColor},${COLOR.dataset.sColor}%,${COLOR.dataset.lColor}%)`;
     }
     console.log(
@@ -86,10 +100,8 @@ export function RGBToHSL(r, g, b) {
   return [Math.floor(result[0]), Math.floor(result[1]), Math.floor(result[2])];
 }
 export function numtoHex(number) {
-  console.log(number);
   let value = number.toString();
-  console.log("my value is");
-  console.log(value);
+
   switch (value) {
     case "0":
       return "0";
