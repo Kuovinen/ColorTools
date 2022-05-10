@@ -1,6 +1,6 @@
 :root {
   --cp-White: white;
-  --cp-White10: rgba(187, 230, 255, 0.1);
+  --cp-White10: rgba(87, 107, 118, 0.2);
   --cp-Black: black;
   --cp-Grey: grey;
 }
@@ -11,7 +11,7 @@ body {
 #mainColor {
   height: 5rem;
   width: 25.5rem;
-  outline: 0.3rem solid var(--cp-Black);
+  outline: 0.3rem solid var(--cp-White);
 }
 .sliderContainer {
   display: flex;
@@ -53,4 +53,11 @@ section {
 }
 .hex {
   color: var(--cp-White);
+}
+button {
+  color: var(--cp-Black);
+  background: var(--cp-White);
+  border: none;
+  border-radius: 0.25rem;
+  margin-left: 1rem;
 }

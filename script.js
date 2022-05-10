@@ -3,6 +3,7 @@ import makeSlider, {
   makeRGBInfluence,
   RGBToHSL,
   rgbToHex,
+  switchTheme,
 } from "./functions.js";
 console.log("Script!");
 makeMainColor();
@@ -19,3 +20,4 @@ hsl.appendChild(makeSlider("L", "lColor", "lColorLabel", 100));
 body.appendChild(rgb);
 body.appendChild(hsl);
 makeRGBInfluence();
+document.querySelector("#theme").addEventListener("click", switchTheme);

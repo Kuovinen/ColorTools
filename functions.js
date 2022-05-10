@@ -151,3 +151,24 @@ export function rgbToHex(arr) {
     "#" + createTouple(first) + createTouple(second) + createTouple(third);
   return hex;
 }
+export function switchTheme() {
+  let colorState = getComputedStyle(document.documentElement).getPropertyValue(
+    "--cp-White"
+  );
+
+  if (colorState.trim() === "white") {
+    darkMode();
+  } else {
+    lightMode();
+  }
+  function lightMode() {
+    console.log("switched to light");
+    document.documentElement.style.setProperty("--cp-White", "white");
+    document.documentElement.style.setProperty("--cp-Black", "black");
+  }
+  function darkMode() {
+    console.log("switched to dark");
+    document.documentElement.style.setProperty("--cp-White", "black");
+    document.documentElement.style.setProperty("--cp-Black", "white");
+  }
+}
