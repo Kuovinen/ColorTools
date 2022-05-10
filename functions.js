@@ -44,8 +44,9 @@ export function makeMainColor() {
 }
 //handler that changed the main hex value depending on slider cahnges
 function affectHex() {
+  let hex = document.querySelector(".hex");
   let COLOR = document.querySelector("#mainColor");
-  COLOR.innerText = rgbToHex([
+  hex.innerHTML = rgbToHex([
     COLOR.dataset.rColor,
     COLOR.dataset.gColor,
     COLOR.dataset.bColor,
@@ -61,11 +62,7 @@ export function makeRGBInfluence() {
 
   function changeMainColor(data, value) {
     let COLOR = document.querySelector("#mainColor");
-    COLOR.innerText = rgbToHex([
-      COLOR.dataset.rColor,
-      COLOR.dataset.gColor,
-      COLOR.dataset.bColor,
-    ]);
+    affectHex();
     COLOR.dataset[data] = value;
     if (data == "rColor" || data == "gColor" || data == "bColor") {
       COLOR.style.background = `rgb(${COLOR.dataset.rColor},${COLOR.dataset.gColor},${COLOR.dataset.bColor})`;

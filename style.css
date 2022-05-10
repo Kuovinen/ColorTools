@@ -1,5 +1,6 @@
 :root {
   --cp-White: white;
+  --cp-White10: rgba(187, 230, 255, 0.1);
   --cp-Black: black;
   --cp-Grey: grey;
 }
@@ -20,7 +21,9 @@ input[type="range"] {
   background: transparent;
   outline: none;
   width: 25.5rem;
+  accent-color: grey;
 }
+
 .labelLetter {
   display: flex;
   justify-content: center;
@@ -33,6 +36,21 @@ input[type="range"] {
   color: var(--cp-Grey);
   background: var(--cp-White);
 }
+#rColorLabel,
+#gColorLabel,
+#bColorLabel,
+#hColorLabel,
+#sColorLabel,
+#lColorLabel {
+  color: var(--cp-White);
+}
 section {
-  margin-top: 3rem;
+  margin-top: 1rem;
+  background: var(--cp-White10);
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+.hex {
+  color: var(--cp-White);
 }
