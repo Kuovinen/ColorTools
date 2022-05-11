@@ -203,11 +203,11 @@ export function switchTheme() {
   function lightMode() {
     console.log("switched to light");
     document.documentElement.style.setProperty("--cp-White", "white");
-    document.documentElement.style.setProperty("--cp-Black", "black");
+    document.documentElement.style.setProperty("--cp-Black", "rgb(25, 25, 25)");
   }
   function darkMode() {
     console.log("switched to dark");
-    document.documentElement.style.setProperty("--cp-White", "black");
+    document.documentElement.style.setProperty("--cp-White", "rgb(25, 25, 25)");
     document.documentElement.style.setProperty("--cp-Black", "white");
   }
 }

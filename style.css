@@ -2,7 +2,7 @@
   --cp-White: white;
   --cp-White20: rgba(116, 116, 116, 0.2);
   --cp-White40: rgba(120, 120, 120, 0.4);
-  --cp-Black: black;
+  --cp-Black: rgb(25, 25, 25);
   --cp-Grey: grey;
 }
 body {
@@ -17,11 +17,12 @@ body {
   border-radius: 1rem;
   padding: 2rem;
   background: var(--cp-White40);
+  box-shadow: 0rem 0.2rem 0.5rem black;
 }
 #colors {
   background: var(--cp-Black);
   border-radius: 0.75rem;
-  padding: 0.25rem;
+  padding: 0.2rem;
   height: fit-content;
   width: fit-content;
   display: flex;
@@ -31,8 +32,6 @@ body {
   width: 25.5rem;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-
-  color: hsl(0, 100%, 50%);
 }
 #compColor {
   width: 5rem;
@@ -47,7 +46,7 @@ input[type="range"] {
   background: transparent;
   outline: none;
   width: 25.5rem;
-  accent-color: grey;
+  accent-color: var(--cp-Black);
 }
 
 .labelLetter {
@@ -70,12 +69,16 @@ input[type="range"] {
 #lColorLabel {
   color: var(--cp-White);
 }
+.labelLetter {
+  color: var(--cp-Black);
+}
 section {
   margin-top: 1rem;
   background: var(--cp-White40);
   width: 31rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  box-shadow: 0rem 0.1rem 0.25rem black;
 }
 .hex {
   color: var(--cp-White);
@@ -86,15 +89,14 @@ button {
   background: var(--cp-White);
   border: none;
   border-radius: 1rem;
-  left: -2rem;
-  top: 10rem;
+  left: 80vw;
+  top: -0.5rem;
   width: 5rem;
   font-weight: 700;
-  transform: rotate(270deg);
   padding: 0.5rem;
 }
 button:hover {
   padding: 0.75rem;
   border-radius: 1.125rem;
-  top: 9.75rem;
+  top: -0.75rem;
 }
