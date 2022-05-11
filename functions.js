@@ -26,22 +26,43 @@ export default function makeSlider(labelLetter, id, colorValue, max) {
   container.appendChild(label2);
   element.addEventListener("input", (event) => changeValue(event, colorValue));
   return container;
-  /* document.querySelector(".body").appendChild(container);*/
+  /* document.querySelector(".panel").appendChild(container);*/
 }
-
+//Create the element that will display the main color value
 export function makeMainColor() {
   let COLOR = document.createElement("div");
   COLOR.id = "mainColor";
   COLOR.dataset.rColor = 255;
   COLOR.dataset.gColor = 255;
   COLOR.dataset.bColor = 255;
-  COLOR.dataset.hColor = 255;
-  COLOR.dataset.sColor = 255;
-  COLOR.dataset.lColor = 255;
+  COLOR.dataset.hColor = 360;
+  COLOR.dataset.sColor = 100;
+  COLOR.dataset.lColor = 100;
   COLOR.style.background = "rgb(255,255,255)";
-  COLOR.style.borderRadius = "0.5rem";
-  document.querySelector(".body").appendChild(COLOR);
+  document.querySelector("#colors").appendChild(COLOR);
 }
+//Create the element that will display the complementary color value
+export function makeComplementaryColor() {
+  let COLOR = document.querySelector("#mainColor");
+  let initH = parseFloat(COLOR.dataset.hColor);
+  let h = initH + 180 > 360 ? initH + 180 - 360 : initH + 180;
+  let hsl = [h, COLOR.dataset.sColor, COLOR.dataset.lColor];
+  let COLOR2 = document.createElement("div");
+  COLOR2.id = "compColor";
+  COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+  // COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+  document.querySelector("#colors").appendChild(COLOR2);
+}
+//event handler for changing the complamentary color when main color changes
+function modCompColor() {
+  let COLOR = document.querySelector("#mainColor");
+  let initH = parseFloat(COLOR.dataset.hColor);
+  let h = initH + 180 > 360 ? initH + 180 - 360 : initH + 180;
+  let hsl = [h, COLOR.dataset.sColor, COLOR.dataset.lColor];
+  let COLOR2 = document.querySelector("#compColor");
+  COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+}
+
 //handler that changed the main hex value depending on slider cahnges
 function affectHex() {
   let hex = document.querySelector(".hex");
@@ -54,11 +75,9 @@ function affectHex() {
 }
 //used to change main color when one of the RGB inputs is changed
 export function makeRGBInfluence() {
-  document
-    .querySelector(".body")
-    .addEventListener("input", (event) =>
-      changeMainColor(event.target.id, event.target.value)
-    );
+  document.querySelector("#panel").addEventListener("input", (event) => {
+    changeMainColor(event.target.id, event.target.value);
+  });
 
   function changeMainColor(data, value) {
     let COLOR = document.querySelector("#mainColor");
@@ -66,8 +85,28 @@ export function makeRGBInfluence() {
     COLOR.dataset[data] = value;
     if (data == "rColor" || data == "gColor" || data == "bColor") {
       COLOR.style.background = `rgb(${COLOR.dataset.rColor},${COLOR.dataset.gColor},${COLOR.dataset.bColor})`;
+      COLOR.dataset.hColor = RGBToHSL(
+        COLOR.dataset.rColor,
+        COLOR.dataset.gColor,
+        COLOR.dataset.bColor
+      )[0];
+      document.querySelector("#hColor").value = COLOR.dataset.hColor;
+      COLOR.dataset.sColor = RGBToHSL(
+        COLOR.dataset.rColor,
+        COLOR.dataset.gColor,
+        COLOR.dataset.bColor
+      )[1];
+      document.querySelector("#sColor").value = COLOR.dataset.sColor;
+      COLOR.dataset.lColor = RGBToHSL(
+        COLOR.dataset.rColor,
+        COLOR.dataset.gColor,
+        COLOR.dataset.bColor
+      )[2];
+      document.querySelector("#lColor").value = COLOR.dataset.lColor;
+      modCompColor();
     }
     if (data == "hColor" || data == "sColor" || data == "lColor") {
+      modCompColor();
       COLOR.style.background = `hsl(${COLOR.dataset.hColor},${COLOR.dataset.sColor}%,${COLOR.dataset.lColor}%)`;
     }
     console.log(
@@ -75,7 +114,7 @@ export function makeRGBInfluence() {
     );
   }
 }
-
+//convert RGB values to HSL values
 export function RGBToHSL(r, g, b) {
   r /= 255;
   g /= 255;
@@ -134,7 +173,7 @@ export function numtoHex(number) {
       return "F";
   }
 }
-
+//converts rgb color to hex value
 export function rgbToHex(arr) {
   let first = arr[0];
   let second = arr[1];

@@ -4,10 +4,12 @@ import makeSlider, {
   RGBToHSL,
   rgbToHex,
   switchTheme,
+  makeComplementaryColor,
 } from "./functions.js";
 console.log("Script!");
 makeMainColor();
-let body = document.querySelector(".body");
+makeComplementaryColor();
+let body = document.querySelector("#panel");
 let rgb = document.createElement("section");
 rgb.appendChild(makeSlider("R", "rColor", "rColorLabel", 255));
 rgb.appendChild(makeSlider("G", "gColor", "gColorLabel", 255));

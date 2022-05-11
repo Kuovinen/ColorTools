@@ -1,17 +1,43 @@
 :root {
   --cp-White: white;
-  --cp-White10: rgba(87, 107, 118, 0.2);
+  --cp-White20: rgba(116, 116, 116, 0.2);
+  --cp-White40: rgba(120, 120, 120, 0.4);
   --cp-Black: black;
   --cp-Grey: grey;
 }
 body {
   background: var(--cp-Black);
   font-family: arial;
+  margin: 0;
+  padding: 0;
+}
+#panel {
+  position: relative;
+  margin: 1rem;
+  border-radius: 1rem;
+  padding: 2rem;
+  background: var(--cp-White40);
+}
+#colors {
+  background: var(--cp-Black);
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  height: fit-content;
+  width: fit-content;
+  display: flex;
 }
 #mainColor {
   height: 5rem;
   width: 25.5rem;
-  outline: 0.3rem solid var(--cp-White);
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+
+  color: hsl(0, 100%, 50%);
+}
+#compColor {
+  width: 5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 .sliderContainer {
   display: flex;
@@ -46,8 +72,8 @@ input[type="range"] {
 }
 section {
   margin-top: 1rem;
-  background: var(--cp-White10);
-  width: fit-content;
+  background: var(--cp-White40);
+  width: 31rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
@@ -55,9 +81,20 @@ section {
   color: var(--cp-White);
 }
 button {
+  position: absolute;
   color: var(--cp-Black);
   background: var(--cp-White);
   border: none;
-  border-radius: 0.25rem;
-  margin-left: 1rem;
+  border-radius: 1rem;
+  left: -2rem;
+  top: 10rem;
+  width: 5rem;
+  font-weight: 700;
+  transform: rotate(270deg);
+  padding: 0.5rem;
+}
+button:hover {
+  padding: 0.75rem;
+  border-radius: 1.125rem;
+  top: 9.75rem;
 }
