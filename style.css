@@ -203,22 +203,22 @@ section:hover {
 .mainP {
   height: auto;
   flex: 1;
-  background: cornflowerblue;
+  background: var(--cp-White);
 }
 .secondP {
   height: auto;
   flex: 1;
-  background: tomato;
+  background: var(--cp-White);
 }
 .thirdP {
   height: auto;
   flex: 1;
-  background: orange;
+  background: var(--cp-White);
 }
 .fithP {
   height: auto;
   flex: 1;
-  background: green;
+  background: var(--cp-White);
 }
 @media (max-width: 1000px) {
   #panel {

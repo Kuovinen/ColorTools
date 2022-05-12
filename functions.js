@@ -292,3 +292,8 @@ export function createHueWheel(offset) {
 export function tooltip(message) {
   document.querySelector("#tooltip").innerText = message;
 }
+
+export function copyToClip(target) {
+  navigator.clipboard.writeText(target.innerText);
+  tooltip(`Copied ${target.innerText} to clipboard.`);
+}
