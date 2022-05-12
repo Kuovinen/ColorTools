@@ -32,6 +32,7 @@ export default function makeSlider(labelLetter, id, colorValue, max) {
 export function makeMainColor() {
   let COLOR = document.createElement("div");
   let hexText = document.createElement("div");
+  hexText.addEventListener("click", (event) => copyToClip(event.target));
   hexText.className = "hex";
   hexText.innerHTML = "#FFFFFF";
   COLOR.appendChild(hexText);
@@ -245,4 +246,16 @@ export function createHueWheel(offset) {
 
     parent.appendChild(element);
   }
+}
+
+//copy text to clip
+export function copyToClip(target) {
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(target.innerHTML);
+  tooltip(`Copied ${target.innerHTML} to clipboard`);
+}
+
+//tooltip
+export function tooltip(message) {
+  document.querySelector("#tooltip").innerText = message;
 }

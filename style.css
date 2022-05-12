@@ -18,6 +18,7 @@ body {
   margin: 1.25rem;
   border-radius: 1rem;
   padding: 2rem;
+  min-width: 510px;
   background: var(--cp-White40);
   box-shadow: 0rem 0.2rem 0.5rem black;
 }
@@ -95,6 +96,18 @@ section:hover {
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
+#tooltip {
+  position: absolute;
+  color: var(--cp-Black);
+  background: var(--cp-White);
+  border: none;
+  border-radius: 1rem;
+  left: 2rem;
+  top: -0.75rem;
+
+  font-weight: 700;
+  padding: 0.25rem 1rem;
+}
 button {
   position: absolute;
   color: var(--cp-Black);
@@ -102,17 +115,18 @@ button {
   border: none;
   border-radius: 0.75rem;
   right: 2rem;
-  top: -0.75rem;
+  bottom: -0.75rem;
   width: 4rem;
   font-weight: 700;
   padding: 0.25rem;
 }
+
 button:hover {
   padding: 0.3rem;
   border-radius: 2rem;
   width: 4.3rem;
   right: 1.85rem;
-  top: -0.8rem;
+  bottom: -0.8rem;
 }
 
 .hueCircleBase {
