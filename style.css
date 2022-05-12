@@ -13,7 +13,9 @@ body {
 }
 #panel {
   position: relative;
-  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 1.25rem;
   border-radius: 1rem;
   padding: 2rem;
   background: var(--cp-White40);
@@ -30,6 +32,9 @@ body {
 #mainColor {
   height: 5rem;
   width: 25.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
 }
@@ -80,23 +85,47 @@ section {
   border-radius: 0.5rem;
   box-shadow: 0rem 0.1rem 0.25rem black;
 }
+section:hover {
+  filter: brightness(1.1);
+}
 .hex {
   color: var(--cp-White);
+  background: var(--cp-Black);
+  padding: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 button {
   position: absolute;
   color: var(--cp-Black);
   background: var(--cp-White);
   border: none;
-  border-radius: 1rem;
-  left: 80vw;
-  top: -0.5rem;
-  width: 5rem;
+  border-radius: 0.75rem;
+  right: 2rem;
+  top: -0.75rem;
+  width: 4rem;
   font-weight: 700;
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 button:hover {
-  padding: 0.75rem;
-  border-radius: 1.125rem;
-  top: -0.75rem;
+  padding: 0.3rem;
+  border-radius: 2rem;
+  width: 4.3rem;
+  right: 1.85rem;
+  top: -0.8rem;
+}
+
+.hueCircleBase {
+  position: relative;
+  border-radius: 50%;
+}
+.hue {
+  display: inline-block;
+  height: 0.1rem;
+  transform-origin: top left;
+}
+.hue:hover {
+  width: 10rem;
+  border: 0.1rem solid var(--cp-White);
+  z-index: 2;
 }

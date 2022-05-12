@@ -5,11 +5,12 @@ import makeSlider, {
   rgbToHex,
   switchTheme,
   makeComplementaryColor,
+  createHueWheel,
 } from "./functions.js";
 console.log("Script!");
 makeMainColor();
 makeComplementaryColor();
-let body = document.querySelector("#panel");
+let body = document.querySelector("#instruments");
 let rgb = document.createElement("section");
 rgb.appendChild(makeSlider("R", "rColor", "rColorLabel", 255));
 rgb.appendChild(makeSlider("G", "gColor", "gColorLabel", 255));
@@ -23,3 +24,4 @@ body.appendChild(rgb);
 body.appendChild(hsl);
 makeRGBInfluence();
 document.querySelector("#theme").addEventListener("click", switchTheme);
+createHueWheel(10);

@@ -31,6 +31,10 @@ export default function makeSlider(labelLetter, id, colorValue, max) {
 //Create the element that will display the main color value
 export function makeMainColor() {
   let COLOR = document.createElement("div");
+  let hexText = document.createElement("div");
+  hexText.className = "hex";
+  hexText.innerHTML = "#FFFFFF";
+  COLOR.appendChild(hexText);
   COLOR.id = "mainColor";
   COLOR.dataset.rColor = 255;
   COLOR.dataset.gColor = 255;
@@ -75,7 +79,7 @@ function affectHex() {
 }
 //used to change main color when one of the RGB inputs is changed
 export function makeRGBInfluence() {
-  document.querySelector("#panel").addEventListener("input", (event) => {
+  document.querySelector("#instruments").addEventListener("input", (event) => {
     changeMainColor(event.target.id, event.target.value);
   });
 
@@ -209,5 +213,36 @@ export function switchTheme() {
     console.log("switched to dark");
     document.documentElement.style.setProperty("--cp-White", "rgb(25, 25, 25)");
     document.documentElement.style.setProperty("--cp-Black", "white");
+  }
+}
+
+export function createHueWheel(offset) {
+  let parent = document.querySelector(".hueCircleBase");
+  parent.style.height = `${offset}rem`;
+  parent.style.width = `${offset}rem`;
+  parent.style.background = `var(--cp-Black)`;
+  parent.style.outlineStyle = `solid`;
+  parent.style.outlineWidth = `${offset / 10 + offset / 50}rem`; //
+  parent.style.outlineColor = `var(--cp-Black)`;
+  parent.style.margin = `${offset / 10 + offset / 50}rem`;
+  let element;
+  for (let i = 0; i < 360; i = i + 3) {
+    element = document.createElement("div");
+    element.className = "hue";
+    element.style.background = `hsl(${i},${50}%,${50}%)`;
+    element.style.transform = `rotate(${i}deg)`;
+    element.style.position = `absolute`;
+    element.style.width = `${offset / 10}rem`;
+    //(x, y) = (r * cos(θ), r * sin(θ))
+    let x = (offset / 2) * Math.cos((i * Math.PI) / 180);
+    let y = (offset / 2) * Math.sin((i * Math.PI) / 180);
+    x = Math.round((x + Number.EPSILON) * 100) / 100;
+    y = Math.round((y + Number.EPSILON) * 100) / 100;
+
+    //since cos 0 is 1, offset back by 1
+    element.style.left = `${x + offset / 2}rem`;
+    element.style.top = `${y + offset / 2}rem`;
+
+    parent.appendChild(element);
   }
 }
