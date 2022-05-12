@@ -221,13 +221,12 @@ export function createHueWheel(offset) {
   let parent = document.querySelector(".hueCircleBase");
   parent.style.height = `${offset}rem`;
   parent.style.width = `${offset}rem`;
-  parent.style.background = `var(--cp-Black)`;
   parent.style.outlineStyle = `solid`;
-  parent.style.outlineWidth = `${offset / 10 + offset / 50}rem`; //
+  parent.style.outlineWidth = `${offset / 10 + offset / 30}rem`; //
   parent.style.outlineColor = `var(--cp-Black)`;
   parent.style.margin = `${offset / 10 + offset / 50}rem`;
   let element;
-  for (let i = 0; i < 360; i = i + 3) {
+  for (let i = 0; i < 360; i = i + 4) {
     element = document.createElement("div");
     element.className = "hue";
     element.style.background = `hsl(${i},${50}%,${50}%)`;
@@ -235,8 +234,8 @@ export function createHueWheel(offset) {
     element.style.position = `absolute`;
     element.style.width = `${offset / 10}rem`;
     //(x, y) = (r * cos(θ), r * sin(θ))
-    let x = (offset / 2) * Math.cos((i * Math.PI) / 180);
-    let y = (offset / 2) * Math.sin((i * Math.PI) / 180);
+    let x = (offset / 2 + 0.4) * Math.cos((i * Math.PI) / 180);
+    let y = (offset / 2 + 0.4) * Math.sin((i * Math.PI) / 180);
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     y = Math.round((y + Number.EPSILON) * 100) / 100;
 

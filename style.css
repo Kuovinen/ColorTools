@@ -3,6 +3,7 @@
   --cp-White20: rgba(116, 116, 116, 0.2);
   --cp-White40: rgba(120, 120, 120, 0.4);
   --cp-Black: rgb(25, 25, 25);
+  --cp-Black60: rgb(25, 25, 25, 0.6);
   --cp-Grey: grey;
 }
 body {
@@ -14,25 +15,37 @@ body {
 #panel {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 1.25rem;
+  margin-bottom: 0rem;
   border-radius: 1rem;
-  padding: 2rem;
-  min-width: 510px;
+  padding: 1.5rem;
+  min-width: 400px;
   background: var(--cp-White40);
   box-shadow: 0rem 0.2rem 0.5rem black;
+  gap: 1rem;
+  z-index: 2;
+}
+#instruments {
+  flex: 1;
 }
 #colors {
   background: var(--cp-Black);
   border-radius: 0.75rem;
-  padding: 0.2rem;
   height: fit-content;
-  width: fit-content;
+  box-shadow: 0rem 0.1rem 0.25rem black;
   display: flex;
+}
+.visuals {
+  background: var(--cp-White40);
+  flex: 1;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0.1rem 0.25rem black;
 }
 #mainColor {
   height: 5rem;
-  width: 25.5rem;
+  flex: 3;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -51,7 +64,8 @@ body {
 input[type="range"] {
   background: transparent;
   outline: none;
-  width: 25.5rem;
+  flex: 2;
+  min-width: 15rem;
   accent-color: var(--cp-Black);
 }
 
@@ -81,7 +95,6 @@ input[type="range"] {
 section {
   margin-top: 1rem;
   background: var(--cp-White40);
-  width: 31rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: 0rem 0.1rem 0.25rem black;
@@ -126,12 +139,15 @@ button:hover {
   border-radius: 2rem;
   width: 4.3rem;
   right: 1.85rem;
-  bottom: -0.8rem;
+  bottom: -0.775rem;
 }
 
 .hueCircleBase {
   position: relative;
   border-radius: 50%;
+  border-style: solid;
+  border-width: 0.3rem;
+  border-color: var(--cp-Black);
 }
 .hue {
   display: inline-block;
@@ -142,4 +158,43 @@ button:hover {
   width: 10rem;
   border: 0.1rem solid var(--cp-White);
   z-index: 2;
+}
+.paletteBig {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+  margin-top: 0;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  min-width: 420px;
+  height: 10rem;
+  background: tomato;
+  box-shadow: 0rem 0.2rem 0.5rem black;
+}
+.mainP {
+  height: auto;
+  flex: 1;
+  background: cornflowerblue;
+}
+.secondP {
+  height: auto;
+  flex: 1;
+  background: tomato;
+}
+.thirdP {
+  height: auto;
+  flex: 1;
+  background: orange;
+}
+.fithP {
+  height: auto;
+  flex: 1;
+  background: green;
+}
+@media (max-width: 1000px) {
+  #panel {
+    flex-wrap: wrap;
+  }
 }
