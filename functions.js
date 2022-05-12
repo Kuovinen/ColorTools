@@ -221,7 +221,6 @@ export function rgbToHex(arr) {
   let first = arr[0];
   let second = arr[1];
   let third = arr[2];
-  console.log("converting: " + first, second, third + " to hex");
   function createTouple(number) {
     let newFirst = numtoHex(Math.round((number - (number % 16)) / 16));
     let newSecond = Math.round(number % 16);
@@ -270,6 +269,7 @@ export function createHueWheel(offset) {
   for (let i = 0; i < 360; i = i + 4) {
     element = document.createElement("div");
     element.className = "hue";
+    element.id = `hue${i}`;
     element.style.background = `hsl(${i},${50}%,${50}%)`;
     element.style.transform = `rotate(${i}deg)`;
     element.style.position = `absolute`;
@@ -292,8 +292,31 @@ export function createHueWheel(offset) {
 export function tooltip(message) {
   document.querySelector("#tooltip").innerText = message;
 }
-
 export function copyToClip(target) {
   navigator.clipboard.writeText(target.innerText);
   tooltip(`Copied ${target.innerText} to clipboard.`);
+}
+
+//generate the color paletter
+export function generatePalette() {
+  console.log("gen pal");
+  let COLOR = document.querySelector("#mainColor");
+  let h = COLOR.dataset.hColor;
+  h = parseInt(h, 10);
+  let hsl2 = `hsl(${h + 20 > 360 ? 360 : h + 20},${COLOR.dataset.sColor}%,${
+    COLOR.dataset.lColor
+  }%)`;
+  let hsl3 = `hsl(${h + 60 > 360 ? 360 : h + 50},${COLOR.dataset.sColor}%,${
+    COLOR.dataset.lColor
+  }%)`;
+  let hsl4 = `hsl(${h + 150 > 360 ? 360 : h + 150},${COLOR.dataset.sColor}%,${
+    COLOR.dataset.lColor
+  }%)`;
+  console.log(hsl2, hsl3, hsl4);
+  let COLOR2 = document.querySelector(".secondP");
+  COLOR2.style.background = hsl2;
+  let COLOR3 = document.querySelector(".thirdP");
+  COLOR3.style.background = hsl3;
+  let COLOR4 = document.querySelector(".fourthP");
+  COLOR4.style.background = hsl4;
 }

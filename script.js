@@ -6,6 +6,7 @@ import makeSlider, {
   switchTheme,
   makeComplementaryColor,
   createHueWheel,
+  generatePalette,
 } from "./functions.js";
 console.log("Script!");
 makeMainColor();
@@ -24,4 +25,7 @@ body.appendChild(rgb);
 body.appendChild(hsl);
 makeRGBInfluence();
 document.querySelector("#theme").addEventListener("click", switchTheme);
+document
+  .querySelector("#genPalette")
+  .addEventListener("click", generatePalette);
 createHueWheel(10);

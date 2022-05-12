@@ -215,7 +215,7 @@ section:hover {
   flex: 1;
   background: var(--cp-White);
 }
-.fithP {
+.fourthP {
   height: auto;
   flex: 1;
   background: var(--cp-White);
@@ -223,5 +223,6 @@ section:hover {
 @media (max-width: 1000px) {
   #panel {
     flex-wrap: wrap;
+    color: hsl(0, 100%, 50%);
   }
 }
