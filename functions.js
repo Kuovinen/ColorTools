@@ -55,6 +55,12 @@ export function makeComplementaryColor() {
   let COLOR2 = document.createElement("div");
   COLOR2.id = "compColor";
   COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+  //comp color HEX
+  let hexText = document.createElement("div");
+  hexText.addEventListener("click", (event) => copyToClip(event.target));
+  hexText.className = "hexComp";
+  hexText.innerHTML = "#FFFFFF";
+  COLOR2.appendChild(hexText);
   // COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
   document.querySelector("#colors").appendChild(COLOR2);
 }
@@ -66,6 +72,10 @@ function modCompColor() {
   let hsl = [h, COLOR.dataset.sColor, COLOR.dataset.lColor];
   let COLOR2 = document.querySelector("#compColor");
   COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+  let color2RGB = HSLToRGB(hsl[0], hsl[1], hsl[2]);
+  COLOR2.dataset.rColor = color2RGB[0];
+  COLOR2.dataset.gColor = color2RGB[1];
+  COLOR2.dataset.bColor = color2RGB[2];
 }
 
 //handler that changed the main hex value depending on slider cahnges
@@ -77,46 +87,63 @@ function affectHex() {
     COLOR.dataset.gColor,
     COLOR.dataset.bColor,
   ]);
+  let hex2 = document.querySelector(".hexComp");
+  let COLOR2 = document.querySelector("#compColor");
+  hex2.innerHTML = rgbToHex([
+    COLOR2.dataset.rColor,
+    COLOR2.dataset.gColor,
+    COLOR2.dataset.bColor,
+  ]);
 }
 //used to change main color when one of the RGB inputs is changed
 export function makeRGBInfluence() {
-  document.querySelector("#instruments").addEventListener("input", (event) => {
+  document.querySelector("#panel").addEventListener("input", (event) => {
     changeMainColor(event.target.id, event.target.value);
   });
 
   function changeMainColor(data, value) {
     let COLOR = document.querySelector("#mainColor");
-    affectHex();
+
     COLOR.dataset[data] = value;
     if (data == "rColor" || data == "gColor" || data == "bColor") {
-      COLOR.style.background = `rgb(${COLOR.dataset.rColor},${COLOR.dataset.gColor},${COLOR.dataset.bColor})`;
-      COLOR.dataset.hColor = RGBToHSL(
-        COLOR.dataset.rColor,
-        COLOR.dataset.gColor,
-        COLOR.dataset.bColor
-      )[0];
-      document.querySelector("#hColor").value = COLOR.dataset.hColor;
-      COLOR.dataset.sColor = RGBToHSL(
-        COLOR.dataset.rColor,
-        COLOR.dataset.gColor,
-        COLOR.dataset.bColor
-      )[1];
-      document.querySelector("#sColor").value = COLOR.dataset.sColor;
-      COLOR.dataset.lColor = RGBToHSL(
-        COLOR.dataset.rColor,
-        COLOR.dataset.gColor,
-        COLOR.dataset.bColor
-      )[2];
-      document.querySelector("#lColor").value = COLOR.dataset.lColor;
+      //change the main color
+      let r = COLOR.dataset.rColor;
+      let g = COLOR.dataset.gColor;
+      let b = COLOR.dataset.bColor;
+      let hsl = RGBToHSL(r, g, b);
+      COLOR.style.background = `rgb(${r},${g},${b})`;
+      //assign the new values to main colors datasets
+      COLOR.dataset.hColor = hsl[0];
+      COLOR.dataset.sColor = hsl[1];
+      COLOR.dataset.lColor = hsl[2];
+      //assign the new values to the hsl sliders as well
+      document.querySelector("#hColor").value = hsl[0];
+      document.querySelector("#sColor").value = hsl[1];
+      document.querySelector("#lColor").value = hsl[2];
+      //modify the complementary color
       modCompColor();
     }
     if (data == "hColor" || data == "sColor" || data == "lColor") {
+      let h = COLOR.dataset.hColor;
+      let s = COLOR.dataset.sColor;
+      let l = COLOR.dataset.lColor;
+      let rgb = HSLToRGB(h, s, l);
+      COLOR.style.background = `hsl(${h},${s}%,${l}%)`;
+      //assign the new values to main colors datasets
+      COLOR.dataset.rColor = rgb[0];
+      COLOR.dataset.gColor = rgb[1];
+      COLOR.dataset.bColor = rgb[2];
+      //assign the new values to the rgb sliders as well
+      document.querySelector("#rColor").value = rgb[0];
+      document.querySelector("#gColor").value = rgb[1];
+      document.querySelector("#bColor").value = rgb[2];
+      //modify the complementary color
       modCompColor();
-      COLOR.style.background = `hsl(${COLOR.dataset.hColor},${COLOR.dataset.sColor}%,${COLOR.dataset.lColor}%)`;
     }
-    console.log(
-      RGBToHSL(COLOR.dataset.rColor, COLOR.dataset.gColor, COLOR.dataset.bColor)
-    );
+    affectHex();
+    document.querySelector(
+      ".mainP"
+    ).style.background = `rgb(${COLOR.dataset.rColor},${COLOR.dataset.gColor},${COLOR.dataset.bColor})`;
   }
 }
 //convert RGB values to HSL values
@@ -140,6 +167,17 @@ export function RGBToHSL(r, g, b) {
   ];
   return [Math.floor(result[0]), Math.floor(result[1]), Math.floor(result[2])];
 }
+//convert RGB values to HSL values
+export function HSLToRGB(h, s, l) {
+  s /= 100;
+  l /= 100;
+  const k = (n) => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = (n) =>
+    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  return [255 * f(0), 255 * f(8), 255 * f(4)];
+}
+//hex values from decimal
 export function numtoHex(number) {
   let value = number.toString();
 
@@ -183,18 +221,21 @@ export function rgbToHex(arr) {
   let first = arr[0];
   let second = arr[1];
   let third = arr[2];
-
+  console.log("converting: " + first, second, third + " to hex");
   function createTouple(number) {
-    let newFirst = numtoHex((number - (number % 16)) / 16);
-    let newSecond = numtoHex(number % 16);
-    console.log((number - (number % 16)) / 16, number % 16);
-    return newFirst.toString() + newSecond.toString();
+    let newFirst = numtoHex(Math.round((number - (number % 16)) / 16));
+    let newSecond = Math.round(number % 16);
+    //fix for when Math.round round up to 16 out of possivle 15...
+    newSecond = newSecond == 16 ? numtoHex(15) : numtoHex(newSecond);
+    return newFirst + newSecond;
   }
 
   let hex =
     "#" + createTouple(first) + createTouple(second) + createTouple(third);
   return hex;
 }
+
+//switch the theme
 export function switchTheme() {
   let colorState = getComputedStyle(document.documentElement).getPropertyValue(
     "--cp-White"
@@ -232,7 +273,7 @@ export function createHueWheel(offset) {
     element.style.background = `hsl(${i},${50}%,${50}%)`;
     element.style.transform = `rotate(${i}deg)`;
     element.style.position = `absolute`;
-    element.style.width = `${offset / 10}rem`;
+
     //(x, y) = (r * cos(θ), r * sin(θ))
     let x = (offset / 2 + 0.4) * Math.cos((i * Math.PI) / 180);
     let y = (offset / 2 + 0.4) * Math.sin((i * Math.PI) / 180);
@@ -245,13 +286,6 @@ export function createHueWheel(offset) {
 
     parent.appendChild(element);
   }
-}
-
-//copy text to clip
-export function copyToClip(target) {
-  /* Copy the text inside the text field */
-  navigator.clipboard.writeText(target.innerHTML);
-  tooltip(`Copied ${target.innerHTML} to clipboard`);
 }
 
 //tooltip
