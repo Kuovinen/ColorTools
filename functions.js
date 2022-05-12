@@ -303,15 +303,15 @@ export function generatePalette() {
   let COLOR = document.querySelector("#mainColor");
   let h = COLOR.dataset.hColor;
   h = parseInt(h, 10);
-  let hsl2 = `hsl(${h + 20 > 360 ? 360 : h + 20},${COLOR.dataset.sColor}%,${
+  let hsl2 = `hsl(${h + 20 > 360 ? h - 20 : h + 20},${COLOR.dataset.sColor}%,${
     COLOR.dataset.lColor
   }%)`;
-  let hsl3 = `hsl(${h + 60 > 360 ? 360 : h + 50},${COLOR.dataset.sColor}%,${
+  let hsl3 = `hsl(${h + 60 > 360 ? h - 50 : h + 50},${COLOR.dataset.sColor}%,${
     COLOR.dataset.lColor
   }%)`;
-  let hsl4 = `hsl(${h + 150 > 360 ? 360 : h + 150},${COLOR.dataset.sColor}%,${
-    COLOR.dataset.lColor
-  }%)`;
+  let hsl4 = `hsl(${h + 150 > 360 ? h - 150 : h + 150},${
+    COLOR.dataset.sColor
+  }%,${COLOR.dataset.lColor}%)`;
   console.log(hsl2, hsl3, hsl4);
   let COLOR2 = document.querySelector(".secondP");
   COLOR2.style.background = hsl2;
