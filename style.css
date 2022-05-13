@@ -293,7 +293,7 @@ section:hover .copyButton {
   flex: 1;
   background: white;
 }
-.circleContainer {
+#circleContainer {
   flex: 1;
   display: flex;
   justify-content: center;

@@ -186,6 +186,7 @@ export function makeRGBInfluence() {
       //modify the complementary color
       modCompColor();
     }
+    affectCircle(COLOR.dataset.hColor);
     affectHex();
     document.querySelector(
       ".mainP"
@@ -453,5 +454,24 @@ export function switchPalType(target) {
     document.querySelector(".thirdP").style.flex = 1;
     document.querySelector(".fourthP").style.flex = 3;
     document.querySelector(".comp3").style.display = "none";
+  }
+}
+
+function affectCircle(value) {
+  let arr = [];
+  value = parseInt(value, 10);
+  for (let i = 0; i < 360; i = i + 4) {
+    arr.push(i);
+  }
+  if (arr.indexOf(value) > 0) {
+    if (document.querySelector("#circleContainer").dataset.lastSelected) {
+      let last =
+        document.querySelector("#circleContainer").dataset.lastSelected;
+      document.querySelector(last).style.outline = "none";
+    }
+    let idTarget = arr.indexOf(value);
+    idTarget = `#hue${arr[idTarget]}`;
+    document.querySelector(idTarget).style.outline = "0.2rem solid white";
+    document.querySelector("#circleContainer").dataset.lastSelected = idTarget;
   }
 }
