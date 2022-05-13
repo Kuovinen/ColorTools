@@ -21,6 +21,7 @@ export default function makeSlider(labelLetter, id, colorValue, max) {
   label2.for = "rColor";
   label2.id = colorValue;
   label2.innerText = max;
+  label2.addEventListener("click", (event) => copyToClip(event.target));
   container.appendChild(label1);
   container.appendChild(element);
   container.appendChild(label2);
@@ -84,6 +85,25 @@ export function makeComplementaryColor() {
   // COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
   document.querySelector("#colors").appendChild(COLOR2);
 }
+//Create palette setup
+export function makePaletteSetup() {
+  let COLOR2 = "secondP";
+  let COLOR3 = "thirdP";
+  let COLOR4 = "fourthP";
+
+  function setUpPalette(id) {
+    let color = document.querySelector(`.${id}`);
+    let hexText = document.createElement("div");
+    hexText.className = `hex${id} pHex`;
+    hexText.innerHTML = "#FFFFFF";
+    hexText.addEventListener("click", (event) => copyToClip(event.target));
+    color.appendChild(hexText);
+  }
+  setUpPalette(COLOR2);
+  setUpPalette(COLOR3);
+  setUpPalette(COLOR4);
+}
+
 //event handler for changing the complamentary color when main color changes
 function modCompColor() {
   let COLOR = document.querySelector("#mainColor");
@@ -376,6 +396,23 @@ export function generatePalette() {
   COLOR3.style.background = hsl3;
   let COLOR4 = document.querySelector(".fourthP");
   COLOR4.style.background = hsl4;
+
+  function updateHex(id) {
+    function styleToHex(string) {
+      let pureString = string.slice(4, -1).split(", ");
+      pureString = pureString.map((element) => parseInt(element, 10));
+      pureString = rgbToHex(pureString);
+      return pureString;
+    }
+
+    let hex = styleToHex(document.querySelector(`.${id}`).style.background);
+    //converts CSS data to Hex
+    document.querySelector(`.hex${id}`).innerText = hex;
+  }
+
+  updateHex("thirdP");
+  updateHex("secondP");
+  updateHex("fourthP");
 }
 
 function assingNumber(initial, increment, limit) {
@@ -388,17 +425,17 @@ function assingNumber(initial, increment, limit) {
 
 export function switchPalType(target) {
   target.innerText =
-    target.innerText == "Type:60-30-10" ? "4-Color" : "Type:60-30-10";
+    target.innerText == "Type:60-30-10" ? "Type:4-Color" : "Type:60-30-10";
   let targetColor = document.querySelector(".secondP");
   if (targetColor.style.display == "none") {
-    targetColor.style.display = "block";
+    targetColor.style.display = "flex";
     document.querySelector(".mainP").style.flex = 1;
     document.querySelector(".thirdP").style.flex = 1;
     document.querySelector(".fourthP").style.flex = 1;
   } else {
     targetColor.style.display = "none";
     document.querySelector(".mainP").style.flex = 6;
-    document.querySelector(".thirdP").style.flex = 3;
-    document.querySelector(".fourthP").style.flex = 1;
+    document.querySelector(".thirdP").style.flex = 1;
+    document.querySelector(".fourthP").style.flex = 3;
   }
 }

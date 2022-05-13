@@ -9,6 +9,7 @@ import makeSlider, {
   generatePalette,
   makeCopyBtn,
   switchPalType,
+  makePaletteSetup,
 } from "./functions.js";
 console.log("Script!");
 makeMainColor();
@@ -39,3 +40,4 @@ createHueWheel(10);
 document
   .querySelector("#paletteType")
   .addEventListener("click", (event) => switchPalType(event.target));
+makePaletteSetup();

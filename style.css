@@ -67,7 +67,6 @@ body {
   margin: 0.5rem;
 }
 input[type="range"] {
-  background: transparent;
   outline: none;
   flex: 2;
   min-width: 15rem;
@@ -101,42 +100,58 @@ input[type="range"] {
 }
 section {
   position: relative;
-  z-index: 2;
+
   margin-top: 1rem;
   margin-left: 1.5rem;
   background: var(--cp-GreyLighter);
   padding: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: 0rem 0.1rem 0.25rem black;
+  filter: brightness(1.01);
 }
 section:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
 }
-
+section:hover .copyButton {
+}
 .copyButton {
   position: absolute;
-  z-index: 1;
   color: var(--cp-Black);
   background: var(--cp-White);
   border: none;
   border-top-right-radius: 0.75rem;
   border-top-left-radius: 0.75rem;
   transform: rotate(270deg);
-  left: -2.75rem;
+  left: -2.9rem;
   top: 2rem;
   width: 4rem;
-  font-weight: 700;
+  font-weight: 1000;
   padding: 0.25rem;
 }
-
+.copyButton:hover {
+  padding-bottom: 0.75rem;
+  left: -3.1rem;
+  top: 1.75rem;
+}
 .hex,
 .hexComp {
-  color: var(--cp-White);
-  background: var(--cp-Black);
-  padding: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  color: var(--cp-Black);
+  position: relative;
+  top: 0.25rem;
+  background: var(--cp-White);
+  padding: 0.1rem 0.2rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
 }
+.pHex {
+  color: var(--cp-Black);
+  margin-bottom: 0.25rem;
+  background: var(--cp-White);
+  padding: 0.1rem 0.2rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
+}
+
 #tooltip {
   position: absolute;
   color: var(--cp-Black);
@@ -247,22 +262,31 @@ section:hover {
 .mainP {
   height: auto;
   flex: 1;
-  background: var(--cp-White);
+  background: white;
 }
 .secondP {
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   flex: 1;
-  background: var(--cp-White);
+  background: white;
 }
 .thirdP {
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   flex: 1;
-  background: var(--cp-White);
+  background: white;
 }
 .fourthP {
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   flex: 1;
-  background: var(--cp-White);
+  background: white;
 }
 @media (max-width: 1000px) {
   #panel {
