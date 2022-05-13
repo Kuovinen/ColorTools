@@ -6,6 +6,7 @@
   --cp-Black60: rgb(25, 25, 25, 0.6);
   --cp-GreyLight: rgb(63, 63, 63);
   --cp-GreyLighter: rgb(86, 86, 86);
+  --cp-Comp1: white;
 }
 body {
   background: var(--cp-Black);
@@ -28,7 +29,7 @@ body {
   z-index: 2;
 }
 #instruments {
-  flex: 1;
+  flex: 2;
 }
 #colors {
   background: var(--cp-Black);
@@ -40,6 +41,10 @@ body {
 .visuals {
   background: var(--cp-GreyLighter);
   flex: 1;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0rem 0.1rem 0.25rem black;
@@ -288,9 +293,63 @@ section:hover .copyButton {
   flex: 1;
   background: white;
 }
-@media (max-width: 1000px) {
+.circleContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.composition {
+  flex: 1;
+  position: relative;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background: white;
+}
+.comp1 {
+  position: absolute;
+  border-radius: 0.25rem;
+  top: 10%;
+  left: 5%;
+  height: 80%;
+  width: 50%;
+}
+.comp2 {
+  position: absolute;
+  border-radius: 0.25rem;
+  z-index: 2;
+  bottom: 10%;
+  right: 5%;
+  height: 40%;
+  width: 20%;
+}
+.comp3 {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  top: 10%;
+  right: 10%;
+  height: 6rem;
+  width: 6rem;
+}
+.comp4,
+.comp5 {
+  position: absolute;
+  border-radius: 50%;
+  top: 15%;
+  left: 10%;
+  height: 2rem;
+  width: 2rem;
+}
+.comp5 {
+  left: 30%;
+}
+
+@media (max-width: 680px) {
   #panel {
     flex-wrap: wrap;
-    color: hsl(0, 100%, 50%);
+  }
+  .visuals {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }

@@ -36,7 +36,7 @@ document.querySelector("#theme").addEventListener("click", switchTheme);
 document
   .querySelector("#genPalette")
   .addEventListener("click", generatePalette);
-createHueWheel(10);
+createHueWheel(8);
 document
   .querySelector("#paletteType")
   .addEventListener("click", (event) => switchPalType(event.target));

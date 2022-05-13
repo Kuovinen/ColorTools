@@ -327,7 +327,7 @@ export function createHueWheel(offset) {
   parent.style.height = `${offset}rem`;
   parent.style.width = `${offset}rem`;
   parent.style.outlineStyle = `solid`;
-  parent.style.outlineWidth = `${offset / 10 + offset / 30}rem`; //
+  parent.style.outlineWidth = `${offset / 10 + offset / 12}rem`; //
   parent.style.outlineColor = `var(--cp-Black)`;
   parent.style.margin = `${offset / 10 + offset / 50}rem`;
   let element;
@@ -409,10 +409,24 @@ export function generatePalette() {
     //converts CSS data to Hex
     document.querySelector(`.hex${id}`).innerText = hex;
   }
-
   updateHex("thirdP");
   updateHex("secondP");
   updateHex("fourthP");
+  updateComposition();
+  function updateComposition() {
+    document.querySelector(".composition").style.background =
+      document.querySelector(".hex").innerText;
+    document.querySelector(".comp1").style.background =
+      document.querySelector(".fourthP").innerText;
+    document.querySelector(".comp2").style.background =
+      document.querySelector(".fourthP").innerText;
+    document.querySelector(".comp3").style.background =
+      document.querySelector(".secondP").innerText;
+    document.querySelector(".comp4").style.background =
+      document.querySelector(".thirdP").innerText;
+    document.querySelector(".comp5").style.background =
+      document.querySelector(".thirdP").innerText;
+  }
 }
 
 function assingNumber(initial, increment, limit) {
@@ -432,10 +446,12 @@ export function switchPalType(target) {
     document.querySelector(".mainP").style.flex = 1;
     document.querySelector(".thirdP").style.flex = 1;
     document.querySelector(".fourthP").style.flex = 1;
+    document.querySelector(".comp3").style.display = "block";
   } else {
     targetColor.style.display = "none";
     document.querySelector(".mainP").style.flex = 6;
     document.querySelector(".thirdP").style.flex = 1;
     document.querySelector(".fourthP").style.flex = 3;
+    document.querySelector(".comp3").style.display = "none";
   }
 }
