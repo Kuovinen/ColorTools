@@ -24,9 +24,29 @@ export default function makeSlider(labelLetter, id, colorValue, max) {
   container.appendChild(label1);
   container.appendChild(element);
   container.appendChild(label2);
+
   element.addEventListener("input", (event) => changeValue(event, colorValue));
+
   return container;
   /* document.querySelector(".panel").appendChild(container);*/
+}
+
+export function makeCopyBtn(container, id1, id2, id3) {
+  let button = document.createElement("button");
+  button.className = "copyButton";
+  button.innerText = "copy";
+  let parent = document.querySelector(`#${container}`);
+  function getData() {
+    let value1 = document.querySelector(`#${id1}`).innerText;
+    let value2 = document.querySelector(`#${id2}`).innerText;
+    let value3 = document.querySelector(`#${id3}`).innerText;
+    let text = `(${value1},${value2},${value3})`;
+    return text;
+  }
+
+  button.addEventListener("click", (event) => copyToClip2(getData()));
+
+  parent.appendChild(button);
 }
 //Create the element that will display the main color value
 export function makeMainColor() {
@@ -120,6 +140,9 @@ export function makeRGBInfluence() {
       document.querySelector("#hColor").value = hsl[0];
       document.querySelector("#sColor").value = hsl[1];
       document.querySelector("#lColor").value = hsl[2];
+      document.querySelector("#hColorLabel").innerText = hsl[0];
+      document.querySelector("#sColorLabel").innerText = hsl[1];
+      document.querySelector("#lColorLabel").innerText = hsl[2];
       //modify the complementary color
       modCompColor();
     }
@@ -137,6 +160,9 @@ export function makeRGBInfluence() {
       document.querySelector("#rColor").value = rgb[0];
       document.querySelector("#gColor").value = rgb[1];
       document.querySelector("#bColor").value = rgb[2];
+      document.querySelector("#rColorLabel").innerText = rgb[0];
+      document.querySelector("#gColorLabel").innerText = rgb[1];
+      document.querySelector("#bColorLabel").innerText = rgb[2];
       //modify the complementary color
       modCompColor();
     }
@@ -175,7 +201,11 @@ export function HSLToRGB(h, s, l) {
   const a = s * Math.min(l, 1 - l);
   const f = (n) =>
     l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  return [255 * f(0), 255 * f(8), 255 * f(4)];
+  return [
+    Math.floor(255 * f(0)),
+    Math.floor(255 * f(8)),
+    Math.floor(255 * f(4)),
+  ];
 }
 //hex values from decimal
 export function numtoHex(number) {
@@ -246,14 +276,29 @@ export function switchTheme() {
     lightMode();
   }
   function lightMode() {
-    console.log("switched to light");
     document.documentElement.style.setProperty("--cp-White", "white");
     document.documentElement.style.setProperty("--cp-Black", "rgb(25, 25, 25)");
+
+    document.documentElement.style.setProperty(
+      "--cp-GreyLight",
+      "rgb(63, 63, 63)"
+    );
+    document.documentElement.style.setProperty(
+      "--cp-GreyLighter",
+      "rgb(86, 86, 86)"
+    );
   }
   function darkMode() {
-    console.log("switched to dark");
     document.documentElement.style.setProperty("--cp-White", "rgb(25, 25, 25)");
     document.documentElement.style.setProperty("--cp-Black", "white");
+    document.documentElement.style.setProperty(
+      "--cp-GreyLight",
+      "rgb(213, 213, 213)"
+    );
+    document.documentElement.style.setProperty(
+      "--cp-GreyLighter",
+      "rgb(227, 227, 227)"
+    );
   }
 }
 
@@ -296,27 +341,64 @@ export function copyToClip(target) {
   navigator.clipboard.writeText(target.innerText);
   tooltip(`Copied ${target.innerText} to clipboard.`);
 }
+export function copyToClip2(value) {
+  navigator.clipboard.writeText(value);
+  tooltip(`Copied ${value} to clipboard.`);
+}
 
 //generate the color paletter
 export function generatePalette() {
-  console.log("gen pal");
   let COLOR = document.querySelector("#mainColor");
   let h = COLOR.dataset.hColor;
+  let s = COLOR.dataset.sColor;
+  let l = COLOR.dataset.lColor;
   h = parseInt(h, 10);
-  let hsl2 = `hsl(${h + 20 > 360 ? h - 20 : h + 20},${COLOR.dataset.sColor}%,${
-    COLOR.dataset.lColor
-  }%)`;
-  let hsl3 = `hsl(${h + 60 > 360 ? h - 50 : h + 50},${COLOR.dataset.sColor}%,${
-    COLOR.dataset.lColor
-  }%)`;
-  let hsl4 = `hsl(${h + 150 > 360 ? h - 150 : h + 150},${
-    COLOR.dataset.sColor
-  }%,${COLOR.dataset.lColor}%)`;
-  console.log(hsl2, hsl3, hsl4);
+  s = parseInt(s, 10);
+  l = parseInt(l, 10);
+  let hsl2 = `hsl(${assingNumber(h, 30, 360)},${assingNumber(
+    s,
+    20,
+    100
+  )}%,${assingNumber(l, 20, 100)}%)`;
+  let hsl3 = `hsl(${assingNumber(h, 60, 360)},${assingNumber(
+    s,
+    20,
+    100
+  )}%,${assingNumber(l, 20, 100)}%)`;
+  let hsl4 = `hsl(${assingNumber(h, 150, 360)},${assingNumber(
+    s,
+    20,
+    100
+  )}%,${assingNumber(l, 20, 100)}%)`;
   let COLOR2 = document.querySelector(".secondP");
   COLOR2.style.background = hsl2;
   let COLOR3 = document.querySelector(".thirdP");
   COLOR3.style.background = hsl3;
   let COLOR4 = document.querySelector(".fourthP");
   COLOR4.style.background = hsl4;
+}
+
+function assingNumber(initial, increment, limit) {
+  let returnValue;
+  increment = Math.floor(Math.random() * increment + increment / 3);
+  increment = initial + increment > limit ? -increment : increment;
+  returnValue = initial + increment;
+  return returnValue;
+}
+
+export function switchPalType(target) {
+  target.innerText =
+    target.innerText == "Type:60-30-10" ? "4-Color" : "Type:60-30-10";
+  let targetColor = document.querySelector(".secondP");
+  if (targetColor.style.display == "none") {
+    targetColor.style.display = "block";
+    document.querySelector(".mainP").style.flex = 1;
+    document.querySelector(".thirdP").style.flex = 1;
+    document.querySelector(".fourthP").style.flex = 1;
+  } else {
+    targetColor.style.display = "none";
+    document.querySelector(".mainP").style.flex = 6;
+    document.querySelector(".thirdP").style.flex = 3;
+    document.querySelector(".fourthP").style.flex = 1;
+  }
 }
