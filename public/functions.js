@@ -471,7 +471,8 @@ function affectCircle(value) {
     }
     let idTarget = arr.indexOf(value);
     idTarget = `#hue${arr[idTarget]}`;
-    document.querySelector(idTarget).style.outline = "0.2rem solid white";
+    document.querySelector(idTarget).style.outline =
+      "0.2rem solid var(--cp-White)";
     document.querySelector("#circleContainer").dataset.lastSelected = idTarget;
   }
 }

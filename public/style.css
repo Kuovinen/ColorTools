@@ -344,7 +344,7 @@ section:hover .copyButton {
   left: 30%;
 }
 
-@media (max-width: 680px) {
+@media screen and (max-width: 680px) {
   #panel {
     flex-wrap: wrap;
   }
