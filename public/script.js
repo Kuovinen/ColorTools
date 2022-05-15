@@ -1,8 +1,6 @@
 import makeSlider, {
   makeMainColor,
   makeRGBInfluence,
-  RGBToHSL,
-  rgbToHex,
   switchTheme,
   makeComplementaryColor,
   createHueWheel,
@@ -11,17 +9,16 @@ import makeSlider, {
   switchPalType,
   makePaletteSetup,
 } from "./functions.js";
-console.log("Script!");
 makeMainColor();
 makeComplementaryColor();
-let body = document.querySelector("#instruments");
-let rgb = document.createElement("section");
+const body = document.querySelector("#instruments");
+const rgb = document.createElement("section");
 rgb.id = "rgbSection";
 rgb.appendChild(makeSlider("R", "rColor", "rColorLabel", 255));
 rgb.appendChild(makeSlider("G", "gColor", "gColorLabel", 255));
 rgb.appendChild(makeSlider("B", "bColor", "bColorLabel", 255));
 
-let hsl = document.createElement("section");
+const hsl = document.createElement("section");
 hsl.id = "hslSection";
 hsl.appendChild(makeSlider("H", "hColor", "hColorLabel", 360));
 hsl.appendChild(makeSlider("S", "sColor", "sColorLabel", 100));

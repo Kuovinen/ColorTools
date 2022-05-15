@@ -1,23 +1,23 @@
 export default function makeSlider(labelLetter, id, colorValue, max) {
   function changeValue(event, id2) {
-    let element = event.target;
-    let value = document.querySelector(`#${id2}`);
+    const element = event.target;
+    const value = document.querySelector(`#${id2}`);
     value.innerHTML = element.value;
     document.querySelector(`#mainColor`);
   }
 
-  let container = document.createElement("div");
+  const container = document.createElement("div");
   container.className = "sliderContainer";
-  let label1 = document.createElement("label");
+  const label1 = document.createElement("label");
   label1.innerHTML = labelLetter;
   label1.className = "labelLetter";
-  let element = document.createElement("input");
+  const element = document.createElement("input");
   element.type = "range";
   element.min = 0;
   element.max = max;
   element.id = id;
   element.value = max;
-  let label2 = document.createElement("label");
+  const label2 = document.createElement("label");
   label2.for = "rColor";
   label2.id = colorValue;
   label2.innerText = max;
@@ -33,10 +33,10 @@ export default function makeSlider(labelLetter, id, colorValue, max) {
 }
 
 export function makeCopyBtn(container, id1, id2, id3) {
-  let button = document.createElement("button");
+  const button = document.createElement("button");
   button.className = "copyButton";
   button.innerText = "copy";
-  let parent = document.querySelector(`#${container}`);
+  const parent = document.querySelector(`#${container}`);
   function getData() {
     let value1 = document.querySelector(`#${id1}`).innerText;
     let value2 = document.querySelector(`#${id2}`).innerText;
@@ -51,68 +51,68 @@ export function makeCopyBtn(container, id1, id2, id3) {
 }
 //Create the element that will display the main color value
 export function makeMainColor() {
-  let COLOR = document.createElement("div");
-  let hexText = document.createElement("div");
+  const COLOR = document.createElement("div");
+  const hexText = document.createElement("div");
   hexText.addEventListener("click", (event) => copyToClip(event.target));
   hexText.className = "hex";
-  hexText.innerHTML = "#FFFFFF";
+  hexText.innerHTML = "#b4b47d";
   COLOR.appendChild(hexText);
   COLOR.id = "mainColor";
-  COLOR.dataset.rColor = 255;
-  COLOR.dataset.gColor = 255;
-  COLOR.dataset.bColor = 255;
-  COLOR.dataset.hColor = 360;
-  COLOR.dataset.sColor = 100;
-  COLOR.dataset.lColor = 100;
-  COLOR.style.background = "rgb(255,255,255)";
+  COLOR.dataset.rColor = 180;
+  COLOR.dataset.gColor = 180;
+  COLOR.dataset.bColor = 125;
+  COLOR.dataset.hColor = 60;
+  COLOR.dataset.sColor = 26;
+  COLOR.dataset.lColor = 59;
+  COLOR.style.background = "rgb(180,180,125)";
   document.querySelector("#colors").appendChild(COLOR);
 }
 //Create the element that will display the complementary color value
 export function makeComplementaryColor() {
-  let COLOR = document.querySelector("#mainColor");
-  let initH = parseFloat(COLOR.dataset.hColor);
-  let h = initH + 180 > 360 ? initH + 180 - 360 : initH + 180;
-  let hsl = [h, COLOR.dataset.sColor, COLOR.dataset.lColor];
-  let COLOR2 = document.createElement("div");
+  const COLOR = document.querySelector("#mainColor");
+  const initH = parseFloat(COLOR.dataset.hColor);
+  const h = initH + 180 > 360 ? initH + 180 - 360 : initH + 180;
+  const hsl = [h, COLOR.dataset.sColor, COLOR.dataset.lColor];
+  const COLOR2 = document.createElement("div");
   COLOR2.id = "compColor";
   COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
   //comp color HEX
-  let hexText = document.createElement("div");
+  const hexText = document.createElement("div");
   hexText.addEventListener("click", (event) => copyToClip(event.target));
   hexText.className = "hexComp";
-  hexText.innerHTML = "#FFFFFF";
+  hexText.innerHTML = "#7B7BB1";
   COLOR2.appendChild(hexText);
   // COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
   document.querySelector("#colors").appendChild(COLOR2);
 }
 //Create palette setup
 export function makePaletteSetup() {
-  let COLOR2 = "secondP";
-  let COLOR3 = "thirdP";
-  let COLOR4 = "fourthP";
+  const COLOR2 = "secondP";
+  const COLOR3 = "thirdP";
+  const COLOR4 = "fourthP";
 
-  function setUpPalette(id) {
-    let color = document.querySelector(`.${id}`);
-    let hexText = document.createElement("div");
+  function setUpPalette(id, hex) {
+    const color = document.querySelector(`.${id}`);
+    const hexText = document.createElement("div");
     hexText.className = `hex${id} pHex`;
-    hexText.innerHTML = "#FFFFFF";
+    hexText.innerHTML = hex;
     hexText.addEventListener("click", (event) => copyToClip(event.target));
     color.appendChild(hexText);
   }
-  setUpPalette(COLOR2);
-  setUpPalette(COLOR3);
-  setUpPalette(COLOR4);
+  setUpPalette(COLOR2, "#c1d590");
+  setUpPalette(COLOR3, "#c6e8ba");
+  setUpPalette(COLOR4, "#9bd9d0");
 }
 
 //event handler for changing the complamentary color when main color changes
 function modCompColor() {
-  let COLOR = document.querySelector("#mainColor");
-  let initH = parseFloat(COLOR.dataset.hColor);
-  let h = initH + 180 > 360 ? initH + 180 - 360 : initH + 180;
-  let hsl = [h, COLOR.dataset.sColor, COLOR.dataset.lColor];
-  let COLOR2 = document.querySelector("#compColor");
+  const COLOR = document.querySelector("#mainColor");
+  const initH = parseFloat(COLOR.dataset.hColor);
+  const h = initH + 180 > 360 ? initH + 180 - 360 : initH + 180;
+  const hsl = [h, COLOR.dataset.sColor, COLOR.dataset.lColor];
+  const COLOR2 = document.querySelector("#compColor");
   COLOR2.style.background = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
-  let color2RGB = HSLToRGB(hsl[0], hsl[1], hsl[2]);
+  const color2RGB = HSLToRGB(hsl[0], hsl[1], hsl[2]);
   COLOR2.dataset.rColor = color2RGB[0];
   COLOR2.dataset.gColor = color2RGB[1];
   COLOR2.dataset.bColor = color2RGB[2];
@@ -120,15 +120,15 @@ function modCompColor() {
 
 //handler that changed the main hex value depending on slider cahnges
 function affectHex() {
-  let hex = document.querySelector(".hex");
-  let COLOR = document.querySelector("#mainColor");
+  const hex = document.querySelector(".hex");
+  const COLOR = document.querySelector("#mainColor");
   hex.innerHTML = rgbToHex([
     COLOR.dataset.rColor,
     COLOR.dataset.gColor,
     COLOR.dataset.bColor,
   ]);
-  let hex2 = document.querySelector(".hexComp");
-  let COLOR2 = document.querySelector("#compColor");
+  const hex2 = document.querySelector(".hexComp");
+  const COLOR2 = document.querySelector("#compColor");
   hex2.innerHTML = rgbToHex([
     COLOR2.dataset.rColor,
     COLOR2.dataset.gColor,
@@ -142,15 +142,15 @@ export function makeRGBInfluence() {
   });
 
   function changeMainColor(data, value) {
-    let COLOR = document.querySelector("#mainColor");
+    const COLOR = document.querySelector("#mainColor");
 
     COLOR.dataset[data] = value;
     if (data == "rColor" || data == "gColor" || data == "bColor") {
       //change the main color
-      let r = COLOR.dataset.rColor;
-      let g = COLOR.dataset.gColor;
-      let b = COLOR.dataset.bColor;
-      let hsl = RGBToHSL(r, g, b);
+      const r = COLOR.dataset.rColor;
+      const g = COLOR.dataset.gColor;
+      const b = COLOR.dataset.bColor;
+      const hsl = RGBToHSL(r, g, b);
       COLOR.style.background = `rgb(${r},${g},${b})`;
       //assign the new values to main colors datasets
       COLOR.dataset.hColor = hsl[0];
@@ -167,10 +167,10 @@ export function makeRGBInfluence() {
       modCompColor();
     }
     if (data == "hColor" || data == "sColor" || data == "lColor") {
-      let h = COLOR.dataset.hColor;
-      let s = COLOR.dataset.sColor;
-      let l = COLOR.dataset.lColor;
-      let rgb = HSLToRGB(h, s, l);
+      const h = COLOR.dataset.hColor;
+      const s = COLOR.dataset.sColor;
+      const l = COLOR.dataset.lColor;
+      const rgb = HSLToRGB(h, s, l);
       COLOR.style.background = `hsl(${h},${s}%,${l}%)`;
       //assign the new values to main colors datasets
       COLOR.dataset.rColor = rgb[0];
@@ -207,7 +207,7 @@ export function RGBToHSL(r, g, b) {
       ? 2 + (b - r) / s
       : 4 + (r - g) / s
     : 0;
-  let result = [
+  const result = [
     60 * h < 0 ? 60 * h + 360 : 60 * h,
     100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
     (100 * (2 * l - s)) / 2,
@@ -230,7 +230,7 @@ export function HSLToRGB(h, s, l) {
 }
 //hex values from decimal
 export function numtoHex(number) {
-  let value = number.toString();
+  const value = number.toString();
 
   switch (value) {
     case "0":
@@ -269,27 +269,28 @@ export function numtoHex(number) {
 }
 //converts rgb color to hex value
 export function rgbToHex(arr) {
-  let first = arr[0];
-  let second = arr[1];
-  let third = arr[2];
+  const first = arr[0];
+  const second = arr[1];
+  const third = arr[2];
   function createTouple(number) {
-    let newFirst = numtoHex(Math.round((number - (number % 16)) / 16));
-    let newSecond = Math.round(number % 16);
+    const newFirst = numtoHex(Math.round((number - (number % 16)) / 16));
+    const newSecond = Math.round(number % 16);
     //fix for when Math.round round up to 16 out of possivle 15...
-    newSecond = newSecond == 16 ? numtoHex(15) : numtoHex(newSecond);
-    return newFirst + newSecond;
+    const updatedNewSecond =
+      newSecond == 16 ? numtoHex(15) : numtoHex(newSecond);
+    return newFirst + updatedNewSecond;
   }
 
-  let hex =
+  const hex =
     "#" + createTouple(first) + createTouple(second) + createTouple(third);
   return hex;
 }
 
 //switch the theme
 export function switchTheme() {
-  let colorState = getComputedStyle(document.documentElement).getPropertyValue(
-    "--cp-White"
-  );
+  const colorState = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue("--cp-White");
 
   if (colorState.trim() === "white") {
     darkMode();
@@ -299,19 +300,26 @@ export function switchTheme() {
   function lightMode() {
     document.documentElement.style.setProperty("--cp-White", "white");
     document.documentElement.style.setProperty("--cp-Black", "rgb(25, 25, 25)");
-
+    document.documentElement.style.setProperty(
+      "--cp-Black60",
+      "rgb(25, 25, 25, 0.6)"
+    );
     document.documentElement.style.setProperty(
       "--cp-GreyLight",
       "rgb(63, 63, 63)"
     );
     document.documentElement.style.setProperty(
       "--cp-GreyLighter",
-      "rgb(86, 86, 86)"
+      "rgb(80, 80, 80)"
     );
   }
   function darkMode() {
     document.documentElement.style.setProperty("--cp-White", "rgb(25, 25, 25)");
     document.documentElement.style.setProperty("--cp-Black", "white");
+    document.documentElement.style.setProperty(
+      "--cp-Black60",
+      "rgb(250, 250, 250,0.6)"
+    );
     document.documentElement.style.setProperty(
       "--cp-GreyLight",
       "rgb(213, 213, 213)"
@@ -324,12 +332,13 @@ export function switchTheme() {
 }
 
 export function createHueWheel(offset) {
-  let parent = document.querySelector(".hueCircleBase");
+  const parent = document.querySelector(".hueCircleBase");
+  const outlineOuterCoef = 25;
   parent.style.height = `${offset}rem`;
   parent.style.width = `${offset}rem`;
   parent.style.outlineStyle = `solid`;
-  parent.style.outlineWidth = `${offset / 10 + offset / 12}rem`; //
-  parent.style.outlineColor = `var(--cp-Black)`;
+  parent.style.outlineWidth = `${offset / 10 + offset / outlineOuterCoef}rem`; //
+  parent.style.outlineColor = `var(--cp-Black60)`;
   parent.style.margin = `${offset / 10 + offset / 50}rem`;
   let element;
   for (let i = 0; i < 360; i = i + 4) {
@@ -341,14 +350,16 @@ export function createHueWheel(offset) {
     element.style.position = `absolute`;
 
     //(x, y) = (r * cos(θ), r * sin(θ))
-    let x = (offset / 2 + 0.4) * Math.cos((i * Math.PI) / 180);
-    let y = (offset / 2 + 0.4) * Math.sin((i * Math.PI) / 180);
-    x = Math.round((x + Number.EPSILON) * 100) / 100;
-    y = Math.round((y + Number.EPSILON) * 100) / 100;
+    const borderEdgeOffset = 0.2; //rem
+
+    const x = (offset / 2 + borderEdgeOffset) * Math.cos((i * Math.PI) / 180);
+    const y = (offset / 2 + borderEdgeOffset) * Math.sin((i * Math.PI) / 180);
+    const roundedX = Math.round((x + Number.EPSILON) * 100) / 100;
+    const roundedY = Math.round((y + Number.EPSILON) * 100) / 100;
 
     //since cos 0 is 1, offset back by 1
-    element.style.left = `${x + offset / 2}rem`;
-    element.style.top = `${y + offset / 2}rem`;
+    element.style.left = `${roundedX + offset / 2}rem`;
+    element.style.top = `${roundedY + offset / 2}rem`;
 
     parent.appendChild(element);
   }
@@ -369,44 +380,44 @@ export function copyToClip2(value) {
 
 //generate the color paletter
 export function generatePalette() {
-  let COLOR = document.querySelector("#mainColor");
-  let h = COLOR.dataset.hColor;
-  let s = COLOR.dataset.sColor;
-  let l = COLOR.dataset.lColor;
-  h = parseInt(h, 10);
-  s = parseInt(s, 10);
-  l = parseInt(l, 10);
-  let hsl2 = `hsl(${assingNumber(h, 30, 360)},${assingNumber(
+  const COLOR = document.querySelector("#mainColor");
+  const txtH = COLOR.dataset.hColor;
+  const txtS = COLOR.dataset.sColor;
+  const txtL = COLOR.dataset.lColor;
+  const h = parseInt(txtH, 10);
+  const s = parseInt(txtS, 10);
+  const l = parseInt(txtL, 10);
+  const hsl2 = `hsl(${assingNumber(h, 30, 360)},${assingNumber(
     s,
     20,
     100
   )}%,${assingNumber(l, 20, 100)}%)`;
-  let hsl3 = `hsl(${assingNumber(h, 60, 360)},${assingNumber(
+  const hsl3 = `hsl(${assingNumber(h, 60, 360)},${assingNumber(
     s,
     20,
     100
   )}%,${assingNumber(l, 20, 100)}%)`;
-  let hsl4 = `hsl(${assingNumber(h, 150, 360)},${assingNumber(
+  const hsl4 = `hsl(${assingNumber(h, 150, 360)},${assingNumber(
     s,
     20,
     100
   )}%,${assingNumber(l, 20, 100)}%)`;
-  let COLOR2 = document.querySelector(".secondP");
+  const COLOR2 = document.querySelector(".secondP");
   COLOR2.style.background = hsl2;
-  let COLOR3 = document.querySelector(".thirdP");
+  const COLOR3 = document.querySelector(".thirdP");
   COLOR3.style.background = hsl3;
-  let COLOR4 = document.querySelector(".fourthP");
+  const COLOR4 = document.querySelector(".fourthP");
   COLOR4.style.background = hsl4;
 
   function updateHex(id) {
     function styleToHex(string) {
-      let pureString = string.slice(4, -1).split(", ");
-      pureString = pureString.map((element) => parseInt(element, 10));
-      pureString = rgbToHex(pureString);
-      return pureString;
+      const pureString = string.slice(4, -1).split(", ");
+      const intString = pureString.map((element) => parseInt(element, 10));
+      const hexString = rgbToHex(intString);
+      return hexString;
     }
 
-    let hex = styleToHex(document.querySelector(`.${id}`).style.background);
+    const hex = styleToHex(document.querySelector(`.${id}`).style.background);
     //converts CSS data to Hex
     document.querySelector(`.hex${id}`).innerText = hex;
   }
@@ -441,7 +452,7 @@ function assingNumber(initial, increment, limit) {
 export function switchPalType(target) {
   target.innerText =
     target.innerText == "Type:60-30-10" ? "Type:4-Color" : "Type:60-30-10";
-  let targetColor = document.querySelector(".secondP");
+  const targetColor = document.querySelector(".secondP");
   if (targetColor.style.display == "none") {
     targetColor.style.display = "flex";
     document.querySelector(".mainP").style.flex = 1;
@@ -465,12 +476,12 @@ function affectCircle(value) {
   }
   if (arr.indexOf(value) > 0) {
     if (document.querySelector("#circleContainer").dataset.lastSelected) {
-      let last =
+      const last =
         document.querySelector("#circleContainer").dataset.lastSelected;
       document.querySelector(last).style.outline = "none";
     }
-    let idTarget = arr.indexOf(value);
-    idTarget = `#hue${arr[idTarget]}`;
+    const idTargetNum = arr.indexOf(value);
+    const idTarget = `#hue${arr[idTargetNum]}`;
     document.querySelector(idTarget).style.outline =
       "0.2rem solid var(--cp-White)";
     document.querySelector("#circleContainer").dataset.lastSelected = idTarget;
